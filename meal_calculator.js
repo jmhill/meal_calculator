@@ -26,6 +26,13 @@ Diner.prototype.addDish = function(name, price) {
 
 // Total up cost of all diner's meals
 
+function totalMeal(diners) {
+  var totalBill = 0;
+  for (var i = 0; i < diners.length; i++) {
+    totalBill += diners[i].dinerBill;
+  }
+  return totalBill;
+}
 // Add a fixed tax percentage to the total bill
 
 // Add a percentage tip to the total bill
