@@ -1,8 +1,15 @@
 // Create a new diner object
+var dinerList = [];
 
 var Diner = function(name) {
   this.name = name;
   this.dishes = [];
+  this.dinerBill = 0;
+};
+
+function createDiner(name) {
+  var newDiner = new Diner(name);
+  dinerList.push(newDiner);
 };
 
 // Add dish to diner object
@@ -14,6 +21,7 @@ Diner.prototype.addDish = function(name, price) {
       price: price
     }
   );
+  this.dinerBill += price;
 };
 
 // Total up cost of all diner's meals
