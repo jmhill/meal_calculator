@@ -39,8 +39,15 @@ function totalMeal(diners) {
 
 // Add a fixed tax percentage to the total bill
 
+function addTax(bill, taxRate) {
+  return bill + (bill * taxRate);
+}
 
 // Add a percentage tip to the total bill
+
+function addTip(bill, tipRate) {
+  return bill + (bill * tipRate);
+}
 
 /* Split the bill fairly among the diners
  * Each diner pays their own tax
