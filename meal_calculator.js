@@ -1,15 +1,11 @@
-// Create a new diner object
+// Define Diner Array and Diner Objects
+
 var dinerList = [];
 
 var Diner = function(name) {
   this.name = name;
   this.dishes = [];
   this.dinerBill = 0;
-};
-
-function createDiner(name) {
-  var newDiner = new Diner(name);
-  dinerList.push(newDiner);
 };
 
 // Add dish to diner object
@@ -24,6 +20,13 @@ Diner.prototype.addDish = function(name, price) {
   this.dinerBill += price;
 };
 
+// Create a new diner object
+
+function createDiner(name) {
+  var newDiner = new Diner(name);
+  dinerList.push(newDiner);
+};
+
 // Total up cost of all diner's meals
 
 function totalMeal(diners) {
@@ -32,8 +35,10 @@ function totalMeal(diners) {
     totalBill += diners[i].dinerBill;
   }
   return totalBill;
-}
+};
+
 // Add a fixed tax percentage to the total bill
+
 
 // Add a percentage tip to the total bill
 
