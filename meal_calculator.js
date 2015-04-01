@@ -54,7 +54,16 @@ function addTip(bill, tipRate) {
  * Each diner pays an equal share of the tip
  */
 
+
+
 // Print out a total bill
+
+function printCheck(diners, taxRate, tipRate) {
+  var subtotal = totalMeal(diners);
+  var withTax = addTax(subtotal, taxRate);
+  var withTip = addTip(withTax, tipRate);
+  console.log(withTip);
+}
 
 // Print a breakdown of what each diner owes
 
