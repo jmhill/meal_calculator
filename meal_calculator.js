@@ -1,13 +1,14 @@
+// globals
 var dinerList = [];
 var taxRate = 0.06;
 var tipRate = 0.20;
 
 // Diner object constructor
 
+
 var Diner = function(name) {
   this.name = name;
   this.dishes = [];
-  this.dinerBill = 0;
 };
 
 // Add dish to diner object
@@ -19,7 +20,6 @@ Diner.prototype.addDish = function(name, price) {
       price: price
     }
   );
-  this.dinerBill += price;
 };
 
 // Create a new diner object
@@ -30,28 +30,36 @@ function createDiner(name) {
   return newDiner;
 };
 
-// Total up cost of all diner's meals
+// Calculate the bill of an individual diner, including tax.
 
-function subtotalOfMeal(diners) {
-  var subtotalBillAmount = 0;
-  for (var i = 0; i < diners.length; i++) {
-    subtotalBillAmount += diners[i].dinerBill;
+function calculateDinerBill(diner) {
+  var dinerBill = 0;
+  for (var i = 0; i < diner.dishes.length; i++) {
+    dinerBill += diner.dishes[i]["price"];
   }
-  return subtotalBillAmount;
+  return addTax(dinerBill, taxRate);
+}
+
+// Total up cost of all diner's meals (tax included previously).
+
+function calculateTotalBill(diners) {
+  var total = 0;
+  for (var i = 0; i < diners.length; i++) {
+    total += calculateDinerBill(diners[i]);
+  }
+  return total;
 };
 
-// Add a fixed tax percentage to the total bill
-// TODO: Refactor to attach tax rate directly to individual diner objects, then tax can totaled separately.
+// Add a fixed tax percentage to a bill
 
 function addTax(bill, taxRate) {
   return bill + (bill * taxRate);
 }
 
 // Add a percentage tip to the total bill
-// TODO: Refactor to simply get tip amount, then tip can either be added to bill or split among number of diners.
 
-function addTip(bill, tipRate) {
-  return bill + (bill * tipRate);
+function calculateTip(totalBill, tipRate) {
+  return totalBill * tipRate
 }
 
 /* Split the bill fairly among the diners
@@ -62,17 +70,28 @@ function addTip(bill, tipRate) {
 
 
 // Print out a total bill
-// TODO: Simplify this based off refactoring todos above.
 
-function printCheck(diners, taxRate, tipRate) {
-  var subtotal = subtotalOfMeal(diners);
-  var withTax = addTax(subtotal, taxRate);
-  var withTip = addTip(withTax, tipRate);
-  console.log("The total bill is: $" + withTip.toFixed(2));
+function printGrandTotal() {
+  var base = calculateTotalBill(dinerList);
+  var tip = calculateTip(base, tipRate);
+  var total = base + tip;
+  console.log("The grand total for the table is $" + total.toFixed(2) + ".");
 }
 
 // Print a breakdown of what each diner owes
 
+function printBreakdown() {
+  var tip = calculateTip(calculateTotalBill(dinerList), tipRate);
+  var tipPerPerson = (tip / dinerList.length);
+  var amountOwedMessage = "";
+
+  for (var i=0; i < dinerList.length; i++) {
+    var base = calculateDinerBill(dinerList[i]);
+    var amountOwed = base + tipPerPerson;
+    amountOwedMessage += dinerList[i].name + " owes $" + amountOwed.toFixed(2) + ".\n"; 
+  }
+  console.log(amountOwedMessage);
+}
 
 // TEST
 var justin = createDiner("Justin");
@@ -82,5 +101,8 @@ justin.addDish("Beer", 3.95);
 maggie.addDish("Burger", 7.95);
 maggie.addDish("Wine", 4.95);
 // total should be 39.18
+// justin should be 22.43
+// maggie should be 16.75
 
-printCheck(dinerList, taxRate, tipRate);
+printGrandTotal();
+printBreakdown();
