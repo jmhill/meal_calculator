@@ -62,12 +62,13 @@ function addTip(bill, tipRate) {
 
 
 // Print out a total bill
+// TODO: Simplify this based off refactoring todos above.
 
 function printCheck(diners, taxRate, tipRate) {
   var subtotal = subtotalOfMeal(diners);
   var withTax = addTax(subtotal, taxRate);
   var withTip = addTip(withTax, tipRate);
-  console.log(withTip.toFixed(2));
+  console.log("The total bill is: $" + withTip.toFixed(2));
 }
 
 // Print a breakdown of what each diner owes
