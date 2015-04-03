@@ -1,3 +1,9 @@
+/* Requirements: Split the bill fairly among the diners
+ * Each diner pays their own tax
+ * Each diner pays an equal share of the tip
+ */
+
+
 // globals
 var dinerList = [];
 var taxRate = 0.06;
@@ -11,7 +17,7 @@ var Diner = function(name) {
   this.dishes = [];
 };
 
-// Add dish to diner object
+// Add a new dish to the diner's list of ordered dishes.
 
 Diner.prototype.addDish = function(name, price) {
   this.dishes.push(
@@ -22,7 +28,7 @@ Diner.prototype.addDish = function(name, price) {
   );
 };
 
-// Create a new diner object
+// Add a new diner to the list of people dining.
 
 function createDiner(name) {
   var newDiner = new Diner(name);
@@ -30,7 +36,7 @@ function createDiner(name) {
   return newDiner;
 };
 
-// Calculate the bill of an individual diner, including tax.
+// Calculate the bill of an individual diner, *including tax.*
 
 function calculateDinerBill(diner) {
   var dinerBill = 0;
@@ -62,14 +68,10 @@ function calculateTip(totalBill, tipRate) {
   return totalBill * tipRate
 }
 
-/* Split the bill fairly among the diners
- * Each diner pays their own tax
- * Each diner pays an equal share of the tip
- */
 
 
 
-// Print out a total bill
+// Print out the total bill for the table.
 
 function printGrandTotal() {
   var base = calculateTotalBill(dinerList);
@@ -78,7 +80,7 @@ function printGrandTotal() {
   console.log("The grand total for the table is $" + total.toFixed(2) + ".");
 }
 
-// Print a breakdown of what each diner owes
+// Print a breakdown of what each diner owes.
 
 function printBreakdown() {
   var tip = calculateTip(calculateTotalBill(dinerList), tipRate);
@@ -96,13 +98,12 @@ function printBreakdown() {
 // TEST
 var justin = createDiner("Justin");
 var maggie = createDiner("Maggie");
+var fig = createDiner("Fig")
 justin.addDish("Pizza", 13.95);
 justin.addDish("Beer", 3.95);
 maggie.addDish("Burger", 7.95);
 maggie.addDish("Wine", 4.95);
-// total should be 39.18
-// justin should be 22.43
-// maggie should be 16.75
+fig.addDish("Salmon", 28.00);
 
 printGrandTotal();
 printBreakdown();
