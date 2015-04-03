@@ -1,6 +1,8 @@
-// Define Diner Array and Diner Objects
-
 var dinerList = [];
+var taxRate = 0.06;
+var tipRate = 0.20;
+
+// Diner object constructor
 
 var Diner = function(name) {
   this.name = name;
@@ -25,25 +27,28 @@ Diner.prototype.addDish = function(name, price) {
 function createDiner(name) {
   var newDiner = new Diner(name);
   dinerList.push(newDiner);
+  return newDiner;
 };
 
 // Total up cost of all diner's meals
 
-function totalMeal(diners) {
-  var totalBill = 0;
+function subtotalOfMeal(diners) {
+  var subtotalBillAmount = 0;
   for (var i = 0; i < diners.length; i++) {
-    totalBill += diners[i].dinerBill;
+    subtotalBillAmount += diners[i].dinerBill;
   }
-  return totalBill;
+  return subtotalBillAmount;
 };
 
 // Add a fixed tax percentage to the total bill
+// TODO: Refactor to attach tax rate directly to individual diner objects, then tax can totaled separately.
 
 function addTax(bill, taxRate) {
   return bill + (bill * taxRate);
 }
 
 // Add a percentage tip to the total bill
+// TODO: Refactor to simply get tip amount, then tip can either be added to bill or split among number of diners.
 
 function addTip(bill, tipRate) {
   return bill + (bill * tipRate);
@@ -59,11 +64,22 @@ function addTip(bill, tipRate) {
 // Print out a total bill
 
 function printCheck(diners, taxRate, tipRate) {
-  var subtotal = totalMeal(diners);
+  var subtotal = subtotalOfMeal(diners);
   var withTax = addTax(subtotal, taxRate);
   var withTip = addTip(withTax, tipRate);
-  console.log(withTip);
+  console.log(withTip.toFixed(2));
 }
 
 // Print a breakdown of what each diner owes
 
+
+// TEST
+var justin = createDiner("Justin");
+var maggie = createDiner("Maggie");
+justin.addDish("Pizza", 13.95);
+justin.addDish("Beer", 3.95);
+maggie.addDish("Burger", 7.95);
+maggie.addDish("Wine", 4.95);
+// total should be 39.18
+
+printCheck(dinerList, taxRate, tipRate);
