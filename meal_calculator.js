@@ -3,17 +3,8 @@
 var taxRate = 0.06; // This should actually be initialized with the Point of Sale
 var tipRate = 0.20; // The tip rate should be accepted as a parameter of the check payment process
 
-// Diner object constructor
 
-function Diner (name) {
-  this.name = name;
-  this.dishes = [];
-  // TODO: table assignment
-};
-
-/* Menu object
-list of available dishes
-*/
+// Menu constructor should accept an array of menuItem objects, if blank will have empty array
 function Menu (menuItems) {
   this.menuItems = menuItems ? menuItems : [];
 };
@@ -59,8 +50,16 @@ function Waiter (name) {
 };
 
 // TODO: waiter will initialize all of the different table/check objects that we need.
-Waiter.prototype.initialize = function () {
+Waiter.prototype.openCheck = function () {
+};
 
+
+// Guest object constructor
+
+function Guest (name) {
+  this.name = name;
+  this.dishes = [];
+  // TODO: table assignment
 };
 
 // This will be the new version of the "Cash register"
