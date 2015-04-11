@@ -1,22 +1,18 @@
-/* Requirements: Split the bill fairly among the diners
- * Each diner pays their own tax
- * Each diner pays an equal share of the tip
- */
-
-
 // globals
-var taxRate = 0.06;
-var tipRate = 0.20;
+// TODO: Get rid of these globals
+var taxRate = 0.06; // This should actually be initialized with the Point of Sale
+var tipRate = 0.20; // The tip rate should be accepted as a parameter of the check payment process
 
 // Diner object constructor
 
-var Diner = function(name) {
+function Diner (name) {
   this.name = name;
   this.dishes = [];
+  // TODO: table assignment
 };
 
 // Add a new dish to the diner's list of ordered dishes.
-
+// TODO: move addDish to better place (menu)
 Diner.prototype.addDish = function(name, price) {
   this.dishes.push(
     {
@@ -24,10 +20,64 @@ Diner.prototype.addDish = function(name, price) {
       price: price
     }
   );
+  return this;
 };
 
+/* Menu object
+list of available dishes
+*/
+function Menu (menuItems) {};
+
+/* Table object
+id: 
+total: int
+diner name: []
+waiter: obj
+*/
+
+function Table (idNumber, waiter) {
+  this.idNumber = idNumber;
+  this.total = 0;
+  this.diners = [];
+  this.waiter = waiter;
+};
+
+Table.prototype.addDiner = function (dinerName) {
+  this.diners.push(dinerName);
+};
+
+/* Waiter object
+name:
+tables: []
+tip:
+*/
+
+function Waiter (name) {
+  this.name = name;
+  this.tables = [];
+  this.tip = 0;
+};
+
+// TODO: waiter will initialize all of the different table/check objects that we need.
+Waiter.prototype.initialize = function () {
+
+};
+
+// This will be the new version of the "Cash register"
+// It will be initialized with the:
+// waiters
+// table/check counter
+// 
+function PointOfSale () {};
+
+/* This all needs to be redone:
+  The only things that need to be in cash register/pos are
+  A list of waiters
+  a list of tables
+  a menu
+*/
+/*
 var cashRegister = {
-  dinerList: [],
   // Add a new diner to the list of people dining.
   createDiner: function (name) {
     var newDiner = new Diner(name);
@@ -56,7 +106,7 @@ var cashRegister = {
   },
   // Add a percentage tip to the total bill
   calculateTip: function (totalBill, tipRate) {
-    return totalBill * tipRate
+    return totalBill * tipRate;
   },
   // Print out the total bill for the table.
   printGrandTotal: function () {
@@ -80,9 +130,10 @@ var cashRegister = {
     console.log(amountOwedMessage);
   } 
 }
-
+*/
 
 // TEST
+// TODO: Redo testing after code rewrite
 var justin = cashRegister.createDiner("Justin");
 var maggie = cashRegister.createDiner("Maggie");
 justin.addDish("Pizza", 13.95);
