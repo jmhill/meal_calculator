@@ -26,8 +26,8 @@ diner name: []
 waiter: obj
 */
 
-function Table (idNumber, waiter) {
-  this.idNumber = idNumber;
+function Check (tableNumber, waiter) {
+  this.tableNumber = tableNumber;
   this.total = 0;
   this.diners = [];
   this.waiter = waiter;
@@ -50,7 +50,12 @@ function Waiter (name) {
 };
 
 // TODO: waiter will initialize all of the different table/check objects that we need.
-Waiter.prototype.openCheck = function () {
+Waiter.prototype.openCheck = function (tableNumber) {
+
+};
+
+Waiter.prototype.addGuest = function (checkID) {
+
 };
 
 
@@ -68,7 +73,15 @@ function Guest (name) {
 // waiters
 // table/check counter
 // 
-function PointOfSale () {};
+function PointOfSale (waiters, menu) {
+  this.waiters = waiters ? waiters : [];
+  this.menu = menu ? menu : new Menu();
+}
+
+PointOfSale.prototype.addWaiter = function (name) {
+  this.waiters.push(new Waiter(name));
+  return this;
+};
 
 /* This all needs to be redone:
   The only things that need to be in cash register/pos are
