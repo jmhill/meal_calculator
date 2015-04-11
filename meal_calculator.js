@@ -11,10 +11,15 @@ function Diner (name) {
   // TODO: table assignment
 };
 
-// Add a new dish to the diner's list of ordered dishes.
-// TODO: move addDish to better place (menu)
-Diner.prototype.addDish = function(name, price) {
-  this.dishes.push(
+/* Menu object
+list of available dishes
+*/
+function Menu (menuItems) {
+  this.menuItems = menuItems ? menuItems : [];
+};
+
+Menu.prototype.addItem = function(name, price) {
+  this.menuItems.push(
     {
       name: name,
       price: price
@@ -22,11 +27,6 @@ Diner.prototype.addDish = function(name, price) {
   );
   return this;
 };
-
-/* Menu object
-list of available dishes
-*/
-function Menu (menuItems) {};
 
 /* Table object
 id: 
@@ -65,6 +65,7 @@ Waiter.prototype.initialize = function () {
 
 // This will be the new version of the "Cash register"
 // It will be initialized with the:
+// menu
 // waiters
 // table/check counter
 // 
@@ -132,8 +133,9 @@ var cashRegister = {
 }
 */
 
-// TEST
+
 // TODO: Redo testing after code rewrite
+/*
 var justin = cashRegister.createDiner("Justin");
 var maggie = cashRegister.createDiner("Maggie");
 justin.addDish("Pizza", 13.95);
@@ -143,3 +145,5 @@ maggie.addDish("Wine", 4.95);
 
 cashRegister.printGrandTotal();
 cashRegister.printBreakdown();
+*/
+exports.menu = Menu;
